@@ -1,0 +1,19 @@
+{
+  "name": "ocbl",
+  "version": "1.0.0",
+  "scripts": {
+      "test": "karma start karma.conf.js $*"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-cssnano": "*",
+    "gulp-less": "*",
+    "gulp-uglify": "*",
+    "jasmine": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-jasmine": "^1.1.0"
+  }
+}
