@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('auth.services', [])
-.constant('host', 'http://localhost:5001')
+.constant('api_url_root', 'http://localhost:8000/api')
 .constant('clientToken', 'ocbl-client-token')
-.factory('AuthService', [ '$http', 'host', function($http, host) {
+.factory('AuthService', [ '$http', 'api_url_root', function($http, api_url_root) {
 
 	var service = {
 			users : [],
@@ -20,18 +20,22 @@ angular.module('auth.services', [])
 	}
 
 	service.isAuthenticated = function() {
-		return JSON.parse(localStorage.getItem('authenticated'));
+		var authenticated = localStorage.getItem('authenticated');
+		if(authenticated)
+			return JSON.parse(authenticated);
+		else
+			return false;
 	};
 
 	service.register = function(user) {
-		return $http.post(host + '/api/v1/accounts', user);
+		return $http.post(api_url_root + '/registration', user);
 	}
 
-	service.logIn = function(user) {
-		return $http.post(host + '/api/v1/login', user);
+	service.login = function(user) {
+		return $http.post(api_url_root + '/login', user);
 	};
 
-	service.logOut = function() {
+	service.logout = function() {
 		localStorage.removeItem('authenticated');
 	};
 	

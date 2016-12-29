@@ -9,20 +9,8 @@ describe('Test AuthService', function() {
 		authService = _AuthService_;
 		$http = _$http_;
 	}));
-		
-//	beforeEach(function(){
-//		module('auth.services');
-//		inject(function(AuthService) {
-//			authService = AuthService;
-//		}, function(_$httpBackend_){
-//			$httpBackend = _$httpBackend_;
-//		});
-//	});
 	
 	it('localstorage should be able to store a token', function() {
-//		var res = authService.getToken('authenticated');
-//		console.log('default token=' + res);
-//		expect(res).toBe(false);
 		
 		authService.saveToken('authenticated', true);
 		
@@ -30,13 +18,19 @@ describe('Test AuthService', function() {
 		expect(res).toBe(true);
 	});
 	
-	it('isAuthenticated should be false by default', function() {
-//		var res = authService.isAuthenticated();
-//		expect(res).toBe(false);
+	it('isAuthenticated should be true after save token', function() {
 		
 		authService.saveToken('authenticated', true);
 		
 		var res = authService.isAuthenticated();
 		expect(res).toBe(true);
+	});
+	
+	it('isAuthenticated should be false after logout', function() {
+		
+		authService.logout();
+		
+		var res = authService.isAuthenticated();
+		expect(res).toBe(false);
 	});
 });

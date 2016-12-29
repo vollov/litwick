@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('ocblApp', ['ui.router', 'auth'])
-.constant('API', '/api/v1/')
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function($stateProvider, $urlRouterProvider, $httpProvider) {
 	$stateProvider.state('home', {
 		url : '/home',

@@ -13,8 +13,10 @@ function($state, AuthService) {
 		return AuthService.register(vm.user).then(registerSuccessFn, registerErrorFn);
 
 		function registerSuccessFn(data, status, headers, config) {
-			// if return data have {authenticated: true }, set token to true.
+			// if return data have user, set token to true.
+			console.log(data);
 			AuthService.saveToken('authenticated', true);
+			AuthService.saveToken('ocbl.user', data);
 			$state.go('profile');
 		}
 
@@ -33,6 +35,7 @@ function($state, AuthService) {
 		
 		function loginSuccessFn(data, status, headers, config) {
 			AuthService.saveToken('authenticated', true);
+			AuthService.saveToken('ocbl.user', data);
 			$state.go('profile');
 		}
 
