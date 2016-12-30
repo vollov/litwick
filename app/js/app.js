@@ -9,29 +9,23 @@ angular.module('ocblApp', ['ui.router', 'auth'])
 			requireLogin: false
 		}
 		//controller : 'MainCtrl'
-	})
-	.state('profile', {
-		url : '/profile',
-		templateUrl : 'views/profile.html',
-		data:{
-			requireLogin: false
-		}
 	});
   $urlRouterProvider.otherwise('home');
 }])
 .run(['$rootScope','$state','$http', 'AuthService',function ($rootScope,$state,$http,AuthService) {
-  // Update xsrf $http headers to align with Django's defaults
-  $http.defaults.xsrfHeaderName = 'X-CSRFToken';
-  $http.defaults.xsrfCookieName = 'csrftoken';
-	// $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-	// 	var requireLogin = toState.data.requireLogin;
-	// 	console.log('state change event, isLoggedIn=%s',authService.isLoggedIn());
-	// 	// typeof $rootScope.currentUser === 'undefined'
-	// 	if (requireLogin && (!authService.isLoggedIn())) {
-	// 		event.preventDefault();
-	// 		// code for unauthorized access
-	// 		console.log('state change event -- unauthorized');
-	// 		$state.go('login');
-	// 	}
-	// });
+	// Update xsrf $http headers to align with Django's defaults
+	$http.defaults.xsrfHeaderName = 'X-CSRFToken';
+	$http.defaults.xsrfCookieName = 'csrftoken';
+	
+	$rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+		var requireLogin = toState.data.requireLogin;
+		console.log('state change event, isAuthenticated=%s', AuthService.isAuthenticated());
+		// typeof $rootScope.currentUser === 'undefined'
+		if (requireLogin && (!AuthService.isAuthenticated())) {
+			event.preventDefault();
+			// code for unauthorized access
+			console.log('state change event -- unauthorized');
+			$state.go('login');
+		}
+	});
 }]);

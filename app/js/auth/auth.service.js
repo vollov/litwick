@@ -36,7 +36,9 @@ angular.module('auth.services', [])
 	};
 
 	service.logout = function() {
+		console.log('AuthService.logout()');
 		localStorage.removeItem('authenticated');
+		localStorage.removeItem('ocbl.user');
 	};
 	
 	return service;

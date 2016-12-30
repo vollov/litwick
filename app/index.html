@@ -23,7 +23,7 @@
 <body>
 
 
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="NavCtrl as vm">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -37,7 +37,7 @@
 				<strong class="navbar-brand"></strong>
 			</div>
 
-			<div id="navbar" class="navbar-collapse collapse">
+			<div id="navbar" class="navbar-collapse collapse" >
 
 				<ul class="nav navbar-nav navbar-left">
 					<li><a href="#/">Home</a></li>
@@ -51,9 +51,10 @@
 					<li><a href="#/contacts">Contacts</a></li>
 				</ul>
 
-
-					<a href="#/logout" class="btn btn-success navbar-btn navbar-right">logout</a>
-					<a href="#/login" class="btn btn-success navbar-btn navbar-right">login</a>
+				{{vm.user.username}}
+				<button ng-show="vm.isAuthenticated()" ng-click="vm.logout()"  class="btn btn-success navbar-btn navbar-right">logout</button>
+				
+				<a ng-hide="vm.isAuthenticated()" href="#/login" class="btn btn-success navbar-btn navbar-right">login</a>
 			</div>
 			<!--/.navbar-collapse <p class="navbar-text navbar-right">{{LANGUAGE_CODE}}</p> -->
 		</div>

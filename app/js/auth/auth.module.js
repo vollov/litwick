@@ -6,23 +6,40 @@ angular.module('auth', ['auth.controllers','ui.router'])
 		url : '/login',
 		templateUrl : 'js/auth/views/login.html',
 		controller : 'LoginCtrl',
-		controllerAs: 'vm'
-		// resolve: {
-		// 	confPromise: ['confService', function(confService){
-		// 		return userService.load();
-		// 	}]
-		// }
+		controllerAs: 'vm',
+		onEnter : [ '$state', 'AuthService', function($state, AuthService) {
+			// disable login if user is authenticated
+			if (AuthService.isAuthenticated()) {
+				$state.go('home');
+			}
+		} ],
+		data:{
+			requireLogin: false
+		}
 	})
-  .state('register', {
+	.state('register', {
 		url : '/register',
 		templateUrl : 'js/auth/views/register.html',
 		controller : 'RegisterCtrl',
-		controllerAs: 'vm'
-		// resolve: {
-		// 	confPromise: ['confService', function(confService){
-		// 		return userService.load();
-		// 	}]
-		// }
+		controllerAs: 'vm',
+		onEnter : [ '$state', 'AuthService', function($state, AuthService) {
+			// disable login if user is authenticated
+			if (AuthService.isAuthenticated()) {
+				$state.go('home');
+			}
+		} ],
+		data:{
+			requireLogin: false
+		}
+	})
+	.state('profile', {
+		url : '/profile',
+		templateUrl : 'js/auth/views/profile.html',
+		controller: 'ProfileCtrl',
+		controllerAs: 'vm',
+		data:{
+			requireLogin: true
+		}
 	});
 
 }]);
